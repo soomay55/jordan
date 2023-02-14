@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Providers;
+
+use App\Models\Setting;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Contracts\Cache\Factory;
+use Illuminate\Support\ServiceProvider;
+
+class SettingServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind('settings', function ($app) {
+            return new Setting();
+        });
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Setting', Setting::class);
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot(Factory $cache, Setting $settings)
+    {
+        //
+        // $settings = $cache->remember('settings', 60, function() use ($settings){
+        //     // Laravel >= 5.2, use 'lists' instead of 'pluck' for Laravel <= 5.1
+        //     return $settings->pluck('value', 'name')->all();
+        // });
+        // config()->set('settings', $settings);
+
+         // only use the Settings package if the Settings table is present in the database
+    if (! App::runningInConsole() && count(Schema::getColumnListing('settings'))) {
+        $settings = Setting::all();
+        foreach ($settings as $key => $setting)
+        {
+            Config::set('settings.'.$setting->key, $setting->value);
+        }
+    }
+    }
+}

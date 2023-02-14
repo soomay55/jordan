@@ -120,10 +120,15 @@ class StripePaymentController extends Controller
         //token string generate
         $transaction_reference = $request['transaction_reference'];
         $token_string = 'payment_method=stripe&&transaction_reference=' . $transaction_reference;
+        $Campaign=Campaign::where('id',session()->get('campaign_id'))->first();
+        $total_amount_available = $Campaign->available_fund+session()->get('amount');
         if($request->payment_intent){
             $donation=Donation::where("charge_id",$request->payment_intent_client_secret)->update([
                "txn_id"=>$request->payment_intent,
                 "status" => "paid",
+             ]);
+             $Campaign->update([
+                'available_fund' => $total_amount_available,
              ]);
 
             Mail::to(Auth::user()->email)->send(new PaymentConfirmEmail($request->payment_intent));

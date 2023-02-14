@@ -58,7 +58,7 @@ https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css --
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Operations</div>
-                            <a class="nav-link collapsed {{(Request::is('admin/campaign')) ? 'active' : ''}}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed {{(Request::is('admin/campaign')) ? 'active' : ''}} {{(Request::is('admin/donation')) ? 'active' : ''}}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Campaigns
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -70,7 +70,7 @@ https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css --
                                             <a class="nav-link {{(Request::is('admin/donation')) ? 'active' : ''}}" href="{{route('admin.donation')}}">All Donation</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Pages
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -100,16 +100,16 @@ https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css --
                                         </nav>
                                     </div>
                                 </nav>
-                            </div>
+                            </div> --}}
                             <div class="sb-sidenav-menu-heading">Setting</div>
                             <a class="nav-link {{(Request::is('admin/settings')) ? 'active' : ''}}" href="{{route('admin.settings')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Site setting
                             </a>
-                            <a class="nav-link" href="tables.html">
+                            {{-- <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

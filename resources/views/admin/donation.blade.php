@@ -20,7 +20,7 @@
           </div>
     </div> --}}
     
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card">
             <div class="card-header">All Donation</div>
             
@@ -53,21 +53,22 @@
                     </thead>
                     <tbody>
                         {{-- {{dd($Campaign)}} --}}
-                      
+                      @foreach($Campaign as $campaign)
                         <tr>
                             
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{$campaign->donator_name}}</td>
+                            <td>{{$campaign->campaign['title']}}</td>
+                            <td>{{$campaign->amount}}</td>
+                            <td>{{$campaign->txn_id}}</td>
+                            <td>{{\Carbon\Carbon::parse($campaign->donate_date)->diffForHumans()}}</td>
+                            <td>{{$campaign->status}}</td>
                             <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Launch demo modal
                               </button></td>
                               
                             
                         </tr>
+                        @endforeach
                         
                         
                        

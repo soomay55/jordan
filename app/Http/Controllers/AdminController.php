@@ -27,6 +27,9 @@ class AdminController extends Controller
         //dd($Campaign);
         return view('admin.donation',compact('Campaign'));
     }
+    public function send_mail(){
+        
+    }
 
     
 }

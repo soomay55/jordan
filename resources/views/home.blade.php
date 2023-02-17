@@ -7,10 +7,9 @@
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
-                <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
-                <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-billing-page" target="__blank">Billing</a>
-                <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-security-page" target="__blank">Security</a>
-                
+                <a class="nav-link {{(Request::is('home')) ? 'active' : ''}}" href="{{route('user.home')}}">Profile</a>
+                <a class="nav-link {{(Request::is('home/transaction')) ? 'active' : ''}}" href="{{route('bill.home')}}" >Transaction</a>
+                <a class="nav-link {{(Request::is('home/security')) ? 'active' : ''}}" href="{{route('security.home')}}" >Security</a>
             </nav>
             <hr class="mt-0 mb-4">
             <div class="row">
@@ -19,12 +18,16 @@
                     <div class="card mb-4 mb-xl-0">
                         <div class="card-header">Profile Picture</div>
                         <div class="card-body text-center">
-                            <!-- Profile picture image-->
-                            <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                            <form action="{{route('user.image')}}" method="POST" role="form" enctype="multipart/form-data">
+                            @csrf
+                                <!-- Profile picture image-->
+                            <img id="image" class="img-account-profile rounded-circle mb-2" src="{{url('storage/'.$user->image)}}" style="width: 200px; height: 200px;" alt="">
                             <!-- Profile picture help block-->
                             <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Upload new image</button>
+                            <input type="file" id="my_file" name="profile_image" onchange="loadFile(event,'image')" style="display: none;" />
+                            {{-- <button class="btn btn-primary" type="submit">Upload new image</button> --}}
+                        {{-- </form> --}}
                         </div>
                     </div>
                 </div>
@@ -33,58 +36,62 @@
                     <div class="card mb-4">
                         <div class="card-header">Account Details</div>
                         <div class="card-body">
-                            <form>
+                            {{-- <form action="{{route('user.profile')}}" method="POST" role="form" > --}}
                                 <!-- Form Group (username)-->
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
                                     <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
-                                </div>
+                                </div> --}}
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (first name)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputFirstName">First name</label>
-                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                                        <label class="small mb-1" for="name">First name</label>
+                                        <input class="form-control" id="name" type="text" name="name" placeholder="Enter your first name" value="{{$user->name}}">
                                     </div>
                                     <!-- Form Group (last name)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputLastName">Last name</label>
-                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                                        <label class="small mb-1" for="lastname">Last name</label>
+                                        <input class="form-control" id="lastname" type="text" name="lastname" placeholder="Enter your last name" value="{{$user->lastname}}">
                                     </div>
                                 </div>
                                 <!-- Form Row        -->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (organization name)-->
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label class="small mb-1" for="inputOrgName">Organization name</label>
                                         <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                                    </div> --}}
+                                    <div class="mb-3">
+                                        <label class="small mb-1" for="address">Address </label>
+                                        <input class="form-control" id="address" type="text" name="address" placeholder="" value="{{$user->address}}">
                                     </div>
                                     <!-- Form Group (location)-->
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label class="small mb-1" for="inputLocation">Location</label>
                                         <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!-- Form Group (email address)-->
                                 <div class="mb-3">
-                                    <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                                    <label class="small mb-1" for="email">Email address</label>
+                                    <input class="form-control" id="email" type="email" name="email" disabled placeholder="Enter your email address" value="{{$user->email}}">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">Phone number</label>
                                         <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
-                                    </div>
+                                    </div> --}}
                                     <!-- Form Group (birthday)-->
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label class="small mb-1" for="inputBirthday">Birthday</label>
                                         <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!-- Save changes button-->
-                                <button class="btn btn-primary" type="button">Save changes</button>
+                                <button class="btn btn-primary" type="submit">Save changes</button>
                             </form>
                         </div>
                     </div>
@@ -143,6 +150,15 @@
 @endsection
 @push('script')
 <script>
+   $(document).ready(function(){
+    $("#image").click(function() {
+    $("input[id='my_file']").click();
+});
+loadFile = function(event, id) {
+            var output = document.getElementById(id);
+            output.src = URL.createObjectURL(event.target.files[0]);
+        };
+   });
     $(document).ready(function() {
     $('#example').DataTable({
         columnDefs: [ {

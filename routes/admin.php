@@ -36,3 +36,4 @@ Route::post('campaign/create', [CampaignController::class,'store'])->name('admin
 Route::get('campaign/edit/{id}', [CampaignController::class,'edit'])->name('admin.campaign.edit');
 Route::post('campaign/update/{id}', [CampaignController::class,'update'])->name('admin.campaign.update');
 Route::get('donation', [AdminController::class,'donation'])->name('admin.donation');
+Route::get('send-mail', [AdminController::class,'send_mail'])->name('admin.send-mail');

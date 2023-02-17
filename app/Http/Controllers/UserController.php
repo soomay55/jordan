@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Traits\UploadAble;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    use UploadAble;
     //
     // public function __construct()
     // {
@@ -50,7 +52,7 @@ class UserController extends Controller
             return back();
         };
         //$user=-User::create($request->all());
-        dd(Auth::user());
+        //dd(Auth::user());
     }
 
     public function login_user(Request $request){
@@ -65,5 +67,49 @@ class UserController extends Controller
             return back();
          }
          
+    }
+    public function profile_image(Request $request){
+        //dd($request->all());
+        $validated = $request->validate([
+            //"profile_image" => "required|mimes:jpeg,png,jpg",
+            ]);
+            $user = Auth::user();
+            $image_name=$user->image;
+        if ($request->has('profile_image')) {
+            $image_name = $this->uploadOne($request->file('profile_image'), 'campaign');
+            
+        
+            $user->image=$image_name;
+            
+            //dd($user);
+            //Flash::message('Your account has been updated!');
+        }
+        $user->name=$request->name;
+        $user->lastname=$request->lastname;
+        $user->address=$request->address;
+        $user->save();
+        //dd($user);
+    }
+
+    public function change_password(Request $request){
+         # Validation
+         $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Password changed successfully!");
     }
 }

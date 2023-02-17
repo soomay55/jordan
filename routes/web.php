@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\HomeController;
+use App\Models\Donation;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,19 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/home', function () {
-    //dd(Auth::user());
-    return view('home');
+    $user=Auth::user();
+    return view('home',compact('user'));
 })->name('user.home');
-
+Route::get('/home/transaction', function () {
+    $donation=Auth::user()->with('donation')->first();
+    //dd($donation);
+    return view('bill', compact('donation'));
+})->name('bill.home');
+Route::get('/home/security', function () {
+    //$donation=Auth::user()->with('donation')->first();
+    //dd($donation);
+    return view('security');
+})->name('security.home');
 Auth::routes();
 Route::get('/language/{locale}', function ($locale) {
     
@@ -60,3 +70,5 @@ Route::get('mail',function(){
 
 Route::post('register-user',[App\Http\Controllers\UserController::class,'register_user'])->name('user.register');
 Route::post('login-user',[App\Http\Controllers\UserController::class,'login_user'])->name('user.login');
+Route::post('user-image',[App\Http\Controllers\UserController::class,'profile_image'])->name('user.image');
+Route::post('user-password',[App\Http\Controllers\UserController::class,'change_password'])->name('user.password');

@@ -22,10 +22,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'lastname',
         'password',
         'address',
         'country',
-        'zip'
+        'zip',
+        'image'
     ];
 
     /**
@@ -49,5 +51,8 @@ class User extends Authenticatable
 
     public function payments(){
         return $this->hasMany(Payment::class);
+    }
+    public function donation(){
+        return $this->hasMany(Donation::class);
     }
 }

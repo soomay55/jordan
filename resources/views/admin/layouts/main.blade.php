@@ -19,7 +19,8 @@
         {{-- https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css --}}
 {{-- https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css
 https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css --}}
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        {{-- <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script> --}}
+        <script src="https://kit.fontawesome.com/123957ae5d.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -57,8 +58,16 @@ https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css --
                                 <div class="sb-nav-link-icon "><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Operations</div>
-                            <a class="nav-link collapsed {{(Request::is('admin/campaign')) ? 'active' : ''}} {{(Request::is('admin/donation')) ? 'active' : ''}}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link {{(Request::is('admin/campaign')) ? 'active' : ''}}" href="{{route('admin.campaign.index')}}">
+                                <div class="sb-nav-link-icon "><i class="fas fa-columns"></i></div>
+                                Campaigns
+                            </a>
+                            <a class="nav-link {{(Request::is('admin/donation')) ? 'active' : ''}}" href="{{route('admin.donation')}}">
+                                <div class="sb-nav-link-icon "><i class="fas fa-chart-area"></i></div>
+                                Donation
+                            </a>
+                            {{-- <div class="sb-sidenav-menu-heading">Operations</div> --}}
+                            {{-- <a class="nav-link collapsed {{(Request::is('admin/campaign')) ? 'active' : ''}} {{(Request::is('admin/donation')) ? 'active' : ''}}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Campaigns
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -66,10 +75,10 @@ https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css --
                             <div class="collapse {{(Request::is('admin/campaign*')) ? 'show' : ''}}" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link {{(Request::is('admin/campaign*')) ? 'active' : ''}}" href="{{route('admin.campaign.index')}}">All Campaigns</a>
-                                            {{-- <a class="nav-link" href="{{route('admin.campaign.create')}}">Pending</a> --}}
+                                            <a class="nav-link" href="{{route('admin.campaign.create')}}">Pending</a>
                                             <a class="nav-link {{(Request::is('admin/donation')) ? 'active' : ''}}" href="{{route('admin.donation')}}">All Donation</a>
                                 </nav>
-                            </div>
+                            </div> --}}
                             {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Pages

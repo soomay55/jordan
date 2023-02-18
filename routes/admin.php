@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CampaignController;
+use App\Jobs\SendEmail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +17,9 @@ use App\Http\Controllers\CampaignController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/sendmail', function(){
+    dispatch(new SendEmail('somaybaskey@gmail.com',"spomefayayh"));
+});
 
 Route::get('/home', function () {
     return view('welcome');
@@ -36,4 +41,4 @@ Route::post('campaign/create', [CampaignController::class,'store'])->name('admin
 Route::get('campaign/edit/{id}', [CampaignController::class,'edit'])->name('admin.campaign.edit');
 Route::post('campaign/update/{id}', [CampaignController::class,'update'])->name('admin.campaign.update');
 Route::get('donation', [AdminController::class,'donation'])->name('admin.donation');
-Route::get('send-mail', [AdminController::class,'send_mail'])->name('admin.send-mail');
+Route::post('send-mail', [AdminController::class,'send_mail'])->name('admin.send-mail');

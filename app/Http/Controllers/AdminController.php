@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CustomEmail;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -27,8 +29,12 @@ class AdminController extends Controller
         //dd($Campaign);
         return view('admin.donation',compact('Campaign'));
     }
-    public function send_mail(){
+    public function send_mail(Request $request){
         
+        $mail= Mail::to($request->email)->send(new CustomEmail($request->description));
+        if($mail){
+        return back()->with('success','Mail sent successfully');
+        }
     }
 
     

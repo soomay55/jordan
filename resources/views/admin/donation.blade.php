@@ -62,7 +62,7 @@
                             <td>{{$campaign->txn_id}}</td>
                             <td>{{\Carbon\Carbon::parse($campaign->donate_date)->diffForHumans()}}</td>
                             <td>{{$campaign->status}}</td>
-                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-whatever="{{$campaign->donator_email}}" data-bs-target="#exampleModal">
                                 Launch demo modal
                               </button></td>
                               
@@ -87,12 +87,38 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="{{route('admin.send-mail')}}" method="post">
+            @csrf
         <div class="modal-body">
-          
+            <div class="form-group">
+                <label class="control-label" for="email">Email</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Enter site title"
+                    id="email"
+                    name="email"
+                    value=""
+                    rows="3"
+                />
+                
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="description">Email Content</label>
+                <textarea
+                    class="form-control"
+                    type="text"
+                    placeholder="Enter site title"
+                    id="description"
+                    name="description"
+                    value=""
+                    rows="3"
+                />
+                </textarea>
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send</button>
+          <button type="submit" class="btn btn-primary">Send</button>
         </div>
     </form>
       </div>
@@ -112,5 +138,21 @@
         
     });
 } );
+var exampleModal = document.getElementById('exampleModal')
+exampleModal.addEventListener('show.bs.modal', function (event) {
+  // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var recipient = button.getAttribute('data-bs-whatever')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  var modalTitle = exampleModal.querySelector('.modal-title')
+  var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+  modalTitle.textContent = 'New message to ' + recipient
+  modalBodyInput.value = recipient
+})
 </script>
 @endpush

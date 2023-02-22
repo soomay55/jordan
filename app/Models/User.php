@@ -25,6 +25,10 @@ class User extends Authenticatable
         'lastname',
         'password',
         'address',
+        'membership_id',
+        'is_parent',
+        'code',
+        'expire',
         'country',
         'zip',
         'image'

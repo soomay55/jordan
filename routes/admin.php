@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\MembershipController;
 use App\Jobs\SendEmail;
 
 /*
@@ -42,3 +43,8 @@ Route::get('campaign/edit/{id}', [CampaignController::class,'edit'])->name('admi
 Route::post('campaign/update/{id}', [CampaignController::class,'update'])->name('admin.campaign.update');
 Route::get('donation', [AdminController::class,'donation'])->name('admin.donation');
 Route::post('send-mail', [AdminController::class,'send_mail'])->name('admin.send-mail');
+
+// Membership
+Route::get('member', [MembershipController::class,'index'])->name('admin.membership');
+Route::get('member/create', [MembershipController::class,'create'])->name('admin.membership.create');
+Route::post('member/store', [MembershipController::class,'store'])->name('admin.membership.store');

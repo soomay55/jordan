@@ -1,13 +1,15 @@
 <?php
 
-use App\Mail\PaymentConfirmEmail;
+use App\Models\Donation;
 
+use App\Mail\PaymentConfirmEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\HomeController;
-use App\Models\Donation;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\User\UserAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +25,27 @@ use App\Models\Donation;
 Route::get('/home', function () {
     $user=Auth::user();
     return view('home',compact('user'));
-})->name('user.home');
+})->middleware(['auth:web','is_member'])->name('user.home');
 Route::get('/home/transaction', function () {
     $donation=Auth::user()->with('donation')->first();
-    //dd($donation);
+    
     return view('bill', compact('donation'));
-})->name('bill.home');
+})->middleware(['auth:web'])->name('bill.home');
 Route::get('/home/security', function () {
-    //$donation=Auth::user()->with('donation')->first();
-    //dd($donation);
+    
     return view('security');
-})->name('security.home');
-Auth::routes();
+})->middleware(['auth:web'])->name('security.home');
+//Route::get('/membership')
+// Auth::routes();
+Route::get('/login', [UserAuthController::class,'showLoginForm'])->middleware(RedirectIfAuthenticated::class)->name('show.login');
+Route::post('/login', [UserAuthController::class,'login'])->name('login');
+Route::get('/register', [UserAuthController::class,'showRegisterForm'])->name('show.register');
+Route::post('/register', [UserAuthController::class,'register'])->name('register');
+Route::post('/register-parent', [UserAuthController::class,'register_parent'])->name('register.parent');
+Route::post('/logout', [UserAuthController::class,'logout'])->name('logout');
+
+
+
 Route::get('/language/{locale}', function ($locale) {
     
     app()->setLocale($locale);
@@ -72,3 +83,5 @@ Route::post('register-user',[App\Http\Controllers\UserController::class,'registe
 Route::post('login-user',[App\Http\Controllers\UserController::class,'login_user'])->name('user.login');
 Route::post('user-image',[App\Http\Controllers\UserController::class,'profile_image'])->name('user.image');
 Route::post('user-password',[App\Http\Controllers\UserController::class,'change_password'])->name('user.password');
+
+Route::get('membership',[App\Http\Controllers\HomeController::class,'membership'])->name('membership');

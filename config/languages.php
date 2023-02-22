@@ -4,13 +4,10 @@ return [
         'display' => 'English',
         'flag-icon' => 'us'
     ],
-    'arb' => [
+    'ar' => [
         'display' => 'Arabic',
         'flag-icon' => 'ar'
-    ],
-    'es' => [
-        'display' => 'Spanish',
-        'flag-icon' => 'es'
-    ],
+    ]
+    
     
 ];

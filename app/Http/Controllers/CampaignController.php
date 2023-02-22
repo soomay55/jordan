@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CampaignRequest;
 use App\Models\Campaign;
 use App\Traits\UploadAble;
 use Illuminate\Http\Request;
@@ -33,32 +34,33 @@ class CampaignController extends Controller
             "available_fund"=>200,
             "status"=>"pending"
         ];
-        $Campaign=Campaign::all();
-        //dd($Campaign);
+        //dd(app()->getLocale());
+        $Campaign=Campaign::translatedIn(app()->getLocale())->get();
+        //dd($Campaign[0]['title']);
         return view('admin.campaign.index',compact('Campaign'));
     }
 
     public function create(){
         return view('admin.campaign.create');
     }
-    public function store(Request $request){
-             
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            "description" => "required",
-            "featured_image" => "required|mimes:jpeg,png,jpg",
-            "end_date" => "required|date|after:tomorrow",            
-            "goal"=>"required",
-        ]);
+    public function store(CampaignRequest $request){
+            //dd($request->all());
+             $request->validated();
+        // $validated = $request->validate([
+        //     'title' => 'required|max:255',
+        //     "description" => "required",
+        //     "featured_image" => "required|mimes:jpeg,png,jpg",
+        //     "end_date" => "required|date|after:tomorrow",            
+        //     "goal"=>"required",
+        // ]);
         $image_name="";        
-        if ($request->has('featured_image')) {
-            $image_name = $this->uploadOne($request->file('featured_image'), 'campaign');
-            }
+        
+            //"featured_image" => $image_name,
         $data=[
             "category" => "child",
-            "title" => $request->title,
-            "description" => $request->description,
-            "featured_image" => $image_name,
+            
+            
+           
             "video_link" =>$request->video_link,
             "start_date" => Carbon::now(),
             "end_date" => $request->end_date,
@@ -67,6 +69,15 @@ class CampaignController extends Controller
             
             "status"=>"pending"
         ];
+        
+        foreach(config('translatable.locales') as $locale){
+                $data[$locale] =$request->$locale;
+        }
+        if ($request->has('featured_image')) {
+            $image_name = $this->uploadOne($request->file('featured_image'), 'campaign');
+            $data['featured_image']=$image_name;
+            }
+        //dd($data);
         $Campaign=Campaign::create($data);
         if($Campaign){
             return redirect()->route('admin.campaign.index')->with('success','New Campaign Success created successfully');

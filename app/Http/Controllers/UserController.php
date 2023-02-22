@@ -51,6 +51,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             return back();
         };
+        return back()->withErrors(['Somthing went wrong']);
         //$user=-User::create($request->all());
         //dd(Auth::user());
     }
@@ -66,6 +67,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             return back();
          }
+         return back()->withErrors(['Email or password is incorrect']);
          
     }
     public function profile_image(Request $request){
@@ -88,7 +90,7 @@ class UserController extends Controller
         $user->lastname=$request->lastname;
         $user->address=$request->address;
         $user->save();
-        //dd($user);
+       return back()->with('success', 'Your account has been updated!');
     }
 
     public function change_password(Request $request){

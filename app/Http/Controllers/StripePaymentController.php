@@ -81,12 +81,13 @@ class StripePaymentController extends Controller
         Stripe::setApiKey(Setting::get('stripe_secret_key'));
         header('Content-Type: application/json');
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => $request->order_amount*100,
+            'amount' => $request->session()->get('amount')*100,
             'currency' => Setting::get('currency_code'),
             'automatic_payment_methods' => [
                 'enabled' => true,
             ],
         ]);
+        //$request->order_amount
 
         $Campaign=Campaign::where('id', '=', $request->campaign_id)->first();
 

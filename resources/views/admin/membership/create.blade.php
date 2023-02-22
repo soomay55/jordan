@@ -1,9 +1,9 @@
 @extends('admin.layouts.main')
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Campaign</h1>
+    <h1 class="mt-4">Member card</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Campaign</li>
+        <li class="breadcrumb-item active">Member card</li>
     </ol>
     @if ($errors->any())
      @foreach ($errors->all() as $error)
@@ -13,9 +13,9 @@
     <div class="row justify-content-between">
         <div class="col-md-8">
             <div class="tile">
-                <form action="{{ route('admin.campaign.create') }}" method="POST" role="form" enctype="multipart/form-data">
+                <form action="{{ route('admin.membership.store') }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
-                    <h3 class="tile-title">Create Campaign</h3>
+                    <h3 class="tile-title">Create Member card</h3>
                     <hr>
                     <div class="tile-body">
                         @foreach(config('translatable.locales') as $locale)
@@ -25,7 +25,7 @@
                             <input
                                 class="form-control"
                                 type="text"
-                                placeholder="Enter site name"
+                                placeholder="Enter Card title"
                                 id="title_{{$locale}}"
                                 name="{{$locale}}[title]"
                                 value="{{old($locale.'.title')}}"
@@ -36,13 +36,13 @@
                             <textarea
                                 class="form-control"
                                 type="text"
-                                placeholder="Enter site title"
+                                placeholder="Enter Card Description"
                                 id="description_{{$locale}}"
                                 name="{{$locale}}[description]"
                                 value=""
                                 rows="3"
-                            />
-                            </textarea>
+                            ></textarea>
+                            
                         </div>
                         @endforeach
                         <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="faviconImg" style="width: 80px; height: auto;">
@@ -57,18 +57,8 @@
                                 onchange="loadFile(event,'faviconImg')"
                             />
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="video_link">Video link</label>
-                            <input
-                                class="form-control"
-                                type="text"
-                                placeholder="eg. YouTube video link"
-                                id="video_link"
-                                name="video_link"
-                                value=""
-                            />
-                        </div>
-                        <div class="form-group">
+                        
+                        {{-- <div class="form-group">
                             <label class="control-label" for="end_date">End Date</label>
                             <input
                                 class="form-control"
@@ -78,31 +68,32 @@
                                 name="end_date"
                                 value=""
                             />
+                        </div> --}}
+                        <div class="form-group">
+                            <label class="control-label" for="member">Total Member</label>
+                            <input
+                                class="form-control"
+                                type="text"
+                                placeholder="Total number of members"
+                                id="member"
+                                name="member"
+                                value=""
+                            />
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="goal">Goal Amount</label>
+                            <label class="control-label" for="amount">Amount</label>
                             <input
                                 class="form-control"
                                 type="text"
-                                placeholder="When the Campaign Ends"
-                                id="goal"
-                                name="goal"
-                                value=""
+                                placeholder="Membership Amount"
+                                id="amount"
+                                name="amount"
+                                value="{{old('amount')}}"
                             />
                         </div>
-                        {{-- <div class="form-group">
-                            <label class="control-label" for="preloaded_amount">Preloaded Amount</label>
-                            <input
-                                class="form-control"
-                                type="text"
-                                placeholder="When the Campaign Ends"
-                                id="preloaded_amount"
-                                name="preloaded_amount"
-                                value=""
-                            />
-                        </div> --}}
+                        
                         <div id="form-group justify-content-between">
-                            <label class="control-label" for="preloaded_amount">Preloaded Amount</label>
+                            <label class="control-label" for="count">Split Amount</label>
                             <div class="input-group col-md-4 m-3">
                                 
                                     <div class="input-group-prepend">
@@ -112,7 +103,7 @@
                                             Delete
                                         </button>
                                         <input type="number"
-                                    class="form-control m-input" name="preloaded_amount[]">
+                                    class="form-control m-input" name="count[]">
                                     </div>
                             </div>
                         </div>
@@ -121,7 +112,7 @@
                         <button id="rowAdder" type="button"
                             class="btn btn-dark">
                             <span class="bi bi-plus-square-dotted">
-                            </span> ADD AMOUNT
+                            </span> ADD SPLIT
                         </button>
                         
                     </div>

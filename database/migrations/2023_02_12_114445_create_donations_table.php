@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('campaign_id');
             $table->integer('user_id')->nullable();
             $table->integer('campaign_by')->nullable();
+            $table->integer('membership_id')->nullable();
+            $table->enum('txn_for',['campaign','membership'])->nullable();
             $table->float('amount');
             $table->enum('anonymous',['yes','no'])->default('no');
             $table->string('donator_name')->nullable();

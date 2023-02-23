@@ -3,97 +3,142 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="container-xl px-4 mt-4">
-            <!-- Account page navigation-->
-            {{-- <nav class="nav nav-borders">
-                <a class="nav-link {{(Request::is('home')) ? 'active' : ''}}" href="{{route('user.home')}}">Profile</a>
-                <a class="nav-link {{(Request::is('home/transaction')) ? 'active' : ''}}" href="{{route('bill.home')}}" >Transaction</a>
-                <a class="nav-link {{(Request::is('home/security')) ? 'active' : ''}}" href="{{route('security.home')}}" >Security</a>
-                
-            </nav> --}}
-            <hr class="mt-0 mb-4">
-            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @elseif (session('error'))
-                                <div class="alert alert-danger" role="alert">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
-            <div class="row">
-                <div class="col-lg-8">
-                    
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="card border-success mb-3" style="max-width: 18rem;">
-                                <div class="card-header bg-transparent border-success">Member Plan-1</div>
-                                <div class="card-body text-success">
-                                  <h5 class="card-title">Family Zone</h5>
-                                  <p class="card-text">4 People Card</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-success">
-                                    <form action="{{route('checkout.amount')}}" method="post">
-                                        @csrf
-                                    <input type="text" name="membership" hidden value="1">
-                                    <input type="submit" value="BUY NOW" class="btn btn-success"/>
-                                    </form>
-                                    
-                                </div>
-                              </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card border-success mb-3" style="max-width: 18rem;">
-                                <div class="card-header bg-transparent border-success">Member Plan-1</div>
-                                <div class="card-body text-success">
-                                  <h5 class="card-title">Family Zone</h5>
-                                  <p class="card-text">4 People Card</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-success">
-                                    <a href="" class="btn btn-success">BUY NOW</a>
-                                </div>
-                              </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card border-success mb-3" style="max-width: 18rem;">
-                                <div class="card-header bg-transparent border-success">Member Plan-1</div>
-                                <div class="card-body text-success">
-                                  <h5 class="card-title">Family Zone</h5>
-                                  <p class="card-text">4 People Card</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-success">
-                                    <a href="" class="btn btn-success">BUY NOW</a>
-                                </div>
-                              </div>
-                        </div>
-                        
-                            
+        @auth
+        <div class="w-full p-3 mb-2 text-center @if($days==0) bg-danger @else bg-warning @endif">
+            @if ($days==0)
+            <h4>Your Membership Expired</h4>
+            @else
+            <h4>Your Membership Expires in {{$days}} Days </h4>
+            @endif
+           
+        </div>         
+         @endauth
+        
+    </div>
+    <div class="row justify-content-center">
+        <div class="pricing-table">
+            @foreach ($membership as $item)
+            <div class="ptable-item">
+                <div class="ptable-single">
+                  <div class="ptable-header">
+                    <div class="ptable-title">
+                      <h2>{{$item->title}}</h2>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <!-- Two factor authentication card-->
-                    <div class="card mb-4">
-                        <div class="card-header">Refer code</div>
-                        <div class="card-body">
-                            <p>Enter Refference code if available</p>
-                            <form>
-                                
-                                
-                                <div class="mt-3">
-                                    <label class="small mb-1" for="twoFactorSMS">Code</label>
-                                    <input class="form-control" id="twoFactorSMS" type="text" placeholder="Reffer code" value="">
-                                </div>
-                                <div class="mt-3">
-                                    
-                                    <input class="form-control success" id="twoFactorSMS" type="submit" placeholder="SUBMIT">
-                                </div>
-                            </form>
-                        </div>
+                    <div class="ptable-price">
+                      <h2><small>$</small>{{$item->amount}}<span>/ M</span></h2>
                     </div>
-                    
+                  </div>
+                  <div class="ptable-body">
+                    <div class="ptable-description">
+                      <ul>
+                        <li>Pure HTML & CSS</li>
+                        <li>Responsive Design</li>
+                        <li>Well-commented Code</li>
+                        <li>Easy to Use</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ptable-footer">
+                    <div class="ptable-action">
+                        <form action="{{route('checkout.amount')}}" method="post">
+                            @csrf
+                        <input type="text" name="membership" hidden value="1">
+                        <input type="submit" value="BUY NOW" class="btn "/>
+                        </form>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            @endforeach
+            
+          
+            <div class="ptable-item featured-item">
+              <div class="ptable-single">
+                <div class="ptable-header">
+                  <div class="ptable-status">
+                    <span>Hot</span>
+                  </div>
+                  <div class="ptable-title">
+                    <h2>Gold</h2>
+                  </div>
+                  <div class="ptable-price">
+                    <h2><small>$</small>199<span>/ M</span></h2>
+                  </div>
+                </div>
+                <div class="ptable-body">
+                  <div class="ptable-description">
+                    <ul>
+                      <li>Pure HTML & CSS</li>
+                      <li>Responsive Design</li>
+                      <li>Well-commented Code</li>
+                      <li>Easy to Use</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="ptable-footer">
+                  <div class="ptable-action">
+                    <a href="">Buy Now</a>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          
+            <div class="ptable-item">
+              <div class="ptable-single">
+                <div class="ptable-header">
+                  <div class="ptable-title">
+                    <h2>Platinum</h2>
+                  </div>
+                  <div class="ptable-price">
+                    <h2><small>$</small>299<span>/ M</span></h2>
+                  </div>
+                </div>
+                <div class="ptable-body">
+                  <div class="ptable-description">
+                    <ul>
+                      <li>Pure HTML & CSS</li>
+                      <li>Responsive Design</li>
+                      <li>Well-commented Code</li>
+                      <li>Easy to Use</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="ptable-footer">
+                  <div class="ptable-action">
+                    <a href="">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ptable-item">
+                <div class="ptable-single">
+                  <div class="ptable-header">
+                    <div class="ptable-title">
+                      <h2>Platinum</h2>
+                    </div>
+                    <div class="ptable-price">
+                      <h2><small>$</small>299<span>/ M</span></h2>
+                    </div>
+                  </div>
+                  <div class="ptable-body">
+                    <div class="ptable-description">
+                      <ul>
+                        <li>Pure HTML & CSS</li>
+                        <li>Responsive Design</li>
+                        <li>Well-commented Code</li>
+                        <li>Easy to Use</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ptable-footer">
+                    <div class="ptable-action">
+                      <a href="">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
         
     </div>
 </div>

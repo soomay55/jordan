@@ -27,7 +27,7 @@ class UserAuthController extends Controller
          $user= Auth::attempt(['email'=>$request->email,'password'=>$request->password]);
          if($user){
             $request->session()->regenerate();
-            return redirect()->route('home');
+            return redirect('/home');
          }
          return back()->withErrors(['Email or password is incorrect']);
     }

@@ -1,110 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <title>Document</title>
-</head>
-<body>
-    <div>
-    <!-- Section: Design Block -->
-<section class="">
+<html>
+    <head>
+        <meta charset="utf-8"/>
+            <meta content="width=device-width, initial-scale=1" name="viewport"/>
+                <title>
+                </title>
+                <!-- Latest compiled and minified CSS -->
+                <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+                    <!-- Optional theme -->
+                    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css" rel="stylesheet"/>
+                        <!-- Latest compiled and minified JavaScript -->
+                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js">
+                        </script>
+                        <link href="https://digispades.net/assets/css/style.min.css" rel="stylesheet" type="text/css">
+                        
+    </head>
+    <body>
+        <div class="container mt-8">
+            <form class="form form-validate" id="checkout-frm" method="post" name="checkout-frm" novalidate="novalidate">
+                <input id="paypal_txnid" name="paypal_txnid" type="hidden">
+                    <input id="paypal_status" name="paypal_status" type="hidden">
+                        <input id="paypal_payamnt" name="paypal_payamnt" type="hidden">
+                         
+                            <div class="row gutter-lg">
+                                <div class="col-lg-7 mb-6"  style="margin: 0 auto;">
+                                    <h3 class="title title-simple text-left">
+                                        Billing Details
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <label class="input-label required">
+                                                Name
+                                            </label>
+                                            <div class="relative">
+                                                <input class="form-control" id="firstName" name="first_name" required="" type="text" value=""/>
+                                               
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label class="input-label required">
+                                                Email Address
+                                            </label>
+                                            <div class="relative">
+                                                <input class="form-control" id="email" name="payer_email" required="" type="email" value=""/>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label class="input-label">
+                                                Phone
+                                            </label>
+                                            <div class="relative">
+                                                <input class="form-control" id="phone" name="mobile" type="text">
+                                                    <input class="form-control" id="subject" name="subject" type="hidden" value=""/>
+                                                        
+                                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="input-label required">
+                                            Street Address
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="relative">
+                                                    <input class="form-control" id="address1" name="address1" placeholder="House number and street name" required="" type="text" value=""/>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="relative">
+                                                    <label class="input-label required">
+                                                        State
+                                                    </label>
+                                                    <input class="form-control" id="state" name="state" required="" type="text" value=""/>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="relative">
+                                                    <label class="input-label required">
+                                                        City
+                                                    </label>
+                                                    <input class="form-control" id="city" name="city" required="" type="text" value=""/>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <label class="input-label required">
+                                                Postcode / ZIP
+                                            </label>
+                                            <div class="relative">
+                                                <input class="form-control" id="postcode" name="postcode" required="" type="text" value=""/>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label class="input-label required">
+                                                Country
+                                            </label>
+                                            
+                                        </div>
+                                    </div>
 
-    <!-- Jumbotron -->
-    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
-      <div class="container">
-        <div class="row gx-lg-5 align-items-center">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <h1 class="my-5 display-3 fw-bold ls-tight">
-              The best offer <br />
-              <span class="text-primary">for your business</span>
-            </h1>
-            <p style="color: hsl(217, 10%, 50.8%)">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-              quibusdam tempora at cupiditate quis eum maiores libero
-              veritatis? Dicta facilis sint aliquid ipsum atque?
-            </p>
-          </div>
-  
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <div class="card">
-              <div class="card-body py-5 px-md-5">
-                <form>
-                  <!-- 2 column grid layout with text inputs for the first and last names -->
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example1" class="form-control" />
-                        <label class="form-label" for="form3Example1">First name</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example2" class="form-control" />
-                        <label class="form-label" for="form3Example2">Last name</label>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <!-- Email input -->
-                  <div class="form-outline mb-4">
-                    <input type="email" id="form3Example3" class="form-control" />
-                    <label class="form-label" for="form3Example3">Email address</label>
-                  </div>
-  
-                  <!-- Password input -->
-                  <div class="form-outline mb-4">
-                    <input type="password" id="form3Example4" class="form-control" />
-                    <label class="form-label" for="form3Example4">Password</label>
-                  </div>
-  
-                  <!-- Checkbox -->
-                  <div class="form-check d-flex justify-content-center mb-4">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-                    <label class="form-check-label" for="form2Example33">
-                      Subscribe to our newsletter
-                    </label>
-                  </div>
-  
-                  <!-- Submit button -->
-                  <button type="submit" class="btn btn-primary btn-block mb-4">
-                    Sign up
-                  </button>
-  
-                  <!-- Register buttons -->
-                  <div class="text-center">
-                    <p>or sign up with:</p>
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                      <i class="fab fa-facebook-f"></i>
-                    </button>
-  
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                      <i class="fab fa-google"></i>
-                    </button>
-  
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                      <i class="fab fa-twitter"></i>
-                    </button>
-  
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                      <i class="fab fa-github"></i>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+                                    <div class="form-group mt-5">
+                                        <h3 class="title title-simple text-left mb-3">
+                                            Additional information
+                                        </h3>
+                                        <label class="input-label">
+                                            Order Notes
+                                            <small>
+                                                (Optional)
+                                            </small>
+                                        </label>
+                                        <textarea class="form-control" id="notes" name="message" placeholder="Notes about your order, e.g. special notes for delivery" rows="6">
+                                        </textarea>
+                                    </div>
+
+                                      <button class="btn btn-primary btn-block mb-3 popup-modal" data-ajaxify="true" disabled="" href="#stripe-modal" id="stript-btn" type="button">
+                                                    CARDS
+                                                    <img src="/assets/images/paylogo.png" style="margin-left: 20px;vertical-align: middle;"/>
+                                                </button>
+                                </div>
+                               
+                            </div>
+                        </input>
+                    </input>
+                </input>
+            </form>
         </div>
-      </div>
-    </div>
-    <!-- Jumbotron -->
-  </section>
-  <!-- Section: Design Block -->
-</div>
-</body>
+    </body>
 </html>

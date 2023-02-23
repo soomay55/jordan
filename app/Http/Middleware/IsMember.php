@@ -18,14 +18,14 @@ class IsMember
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('admin')->check()){
+        if(Auth::guard('web')->check()){
             $expire=Carbon::parse(Auth::user()->expire);
             if($expire<Carbon::now()){
                 return redirect('/membership');
             }
             return $next($request);
         }else{
-            return redirect()->route('admin.login');
+            return redirect()->route('login');
         }
         //return $next($request);
     }

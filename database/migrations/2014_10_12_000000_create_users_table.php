@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('membership_id')->nullable();
+            $table->enum('is_parent',[1,0])->nullable();
+            $table->bigInteger('code')->nullable();
+            $table->date('expire')->nullable();
             $table->string('name');
             $table->string('lastname');
             $table->string('email')->unique();

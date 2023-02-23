@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Campaign;
 use App\Models\Membership;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller 
 {
@@ -68,7 +70,18 @@ class HomeController extends Controller
     }
 
     public function membership(){
-        return view('user.membership');
+        $user='';
+        $days='';
+        if(Auth::check()){
+        $user=Auth::user()->expire;
+        $days=today()->diffInDays(Carbon::parse($user));
+            if(today()>$user){
+                $days=0;
+            }
+        }
+        $membership=Membership::orderBy('amount', 'desc')->get();
+        //dd($membership);
+        return view('user.membership',compact('membership','user','days'));
     }
 
     public function checkout(Request $request){
@@ -79,12 +92,14 @@ class HomeController extends Controller
             //dd($membership);
             session(['amount' => $membership->amount]);
             session(['membership_id' => $membership->id]);
+            $request->session()->forget(['campaign_id']);
         }else{
             $validate=$this->validate($request,[
                 'amount' => 'required|gt:10',
             ]);
             session(['amount' => $request->amount]);
             session(['campaign_id' => $request->campaign_id]);
+            $request->session()->forget(['membership_id']);
         }
        
         // session(['amount' => $request->amount]);
@@ -101,6 +116,7 @@ class HomeController extends Controller
         //$amount=$request->amount;
         $amount = $request->session()->get('amount');
         $camp_id = $request->session()->get('campaign_id');
+        //dd($request->session()->exists('campaign_id'));
         if( $request->session()->exists('campaign_id') && $camp_id !=null){
             $Campaign=Campaign::whereId($camp_id)->first();
             return view('checkout',compact('Campaign','amount'));
@@ -108,6 +124,7 @@ class HomeController extends Controller
         }
         if( $request->session()->exists('membership_id')){
             $Campaign=Membership::where('id',$request->session()->get('membership_id'))->first();
+            
             return view('checkout',compact('Campaign','amount'));
         }
         return redirect()->back();

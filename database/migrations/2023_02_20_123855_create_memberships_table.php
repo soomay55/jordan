@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('featured_image')->nullable();
             $table->bigInteger('amount')->nullable();
+            $table->bigInteger('vaild_days')->nullable();
             $table->bigInteger('member')->default(0);
             $table->json('count')->default(0);
             $table->enum('status',['pending','running','stopped','approved'])->default('pending');

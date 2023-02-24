@@ -63,8 +63,8 @@
       </form>
           @endauth
           @guest
-          <li class="nav-item " ><a href="{{route('contact')}}" class="btn btn-secondary mr-2 rounded">Register as Family</a></li>
-          <li class="nav-item " ><a href="{{route('contact')}}" class="btn btn-secondary mr-2 rounded">Login</a></li>
+          <li class="nav-item " ><a href="{{route('register')}}" class="btn btn-secondary mr-2 rounded">Register as Family</a></li>
+          <li class="nav-item " ><a href="{{route('login')}}" class="btn btn-secondary mr-2 rounded">Login</a></li>
           @endguest
           
           

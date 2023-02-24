@@ -41,7 +41,7 @@ Route::get('/login', [UserAuthController::class,'showLoginForm'])->middleware(Re
 Route::post('/login', [UserAuthController::class,'login'])->name('login');
 Route::get('/register', [UserAuthController::class,'showRegisterForm'])->name('show.register');
 Route::post('/register', [UserAuthController::class,'register'])->name('register');
-Route::get('/register-parent', [UserAuthController::class,'showRegisterParentForm'])->name('show.register');
+Route::get('/register-parent', [UserAuthController::class,'showRegisterParentForm'])->name('register-parent');
 Route::post('/register-parent', [UserAuthController::class,'register_parent'])->name('register.parent');
 Route::post('/logout', [UserAuthController::class,'logout'])->name('logout');
 

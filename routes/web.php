@@ -41,6 +41,7 @@ Route::get('/login', [UserAuthController::class,'showLoginForm'])->middleware(Re
 Route::post('/login', [UserAuthController::class,'login'])->name('login');
 Route::get('/register', [UserAuthController::class,'showRegisterForm'])->name('show.register');
 Route::post('/register', [UserAuthController::class,'register'])->name('register');
+Route::get('/register-parent', [UserAuthController::class,'showRegisterParentForm'])->name('show.register');
 Route::post('/register-parent', [UserAuthController::class,'register_parent'])->name('register.parent');
 Route::post('/logout', [UserAuthController::class,'logout'])->name('logout');
 
@@ -83,5 +84,7 @@ Route::post('register-user',[App\Http\Controllers\UserController::class,'registe
 Route::post('login-user',[App\Http\Controllers\UserController::class,'login_user'])->name('user.login');
 Route::post('user-image',[App\Http\Controllers\UserController::class,'profile_image'])->name('user.image');
 Route::post('user-password',[App\Http\Controllers\UserController::class,'change_password'])->name('user.password');
+
+Route::get('check-code',[UserAuthController::class,'check_code'])->name('user.check_code');
 
 Route::get('membership',[App\Http\Controllers\HomeController::class,'membership'])->name('membership');

@@ -25,7 +25,7 @@ class AdminController extends Controller
         return view('admin.dashboard',compact('total','total_24_hours','Campaign'));
     }
     public function donation(){
-        $Campaign=Donation::where('status','paid')->with('campaign')->get();
+        $Campaign=Donation::where('status','paid')->where('txn_for','campaign')->with('campaign')->get();
         //dd($Campaign);
         return view('admin.donation',compact('Campaign'));
     }

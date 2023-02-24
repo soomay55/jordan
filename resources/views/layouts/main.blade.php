@@ -47,9 +47,24 @@
           <li class="nav-item {{(Request::is('event') || Request::is('event/*')) ? 'active' : ''}}"><a href="{{route('event')}}" class="nav-link">{{__('events')}}</a></li>
           <li class="nav-item {{(Request::is('contact') || Request::is('contact/*')) ? 'active' : ''}}"><a href="{{route('contact')}}" class="nav-link">{{__('contact')}}</a></li>
         </ul>
+       
+      </div>
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          @auth
+          <li class="nav-item " ><a href="{{route('contact')}}" class="nav-link " >Logout</a></li>
+          @endauth
+          @guest
+          <li class="nav-item " ><a href="{{route('contact')}}" class="btn btn-secondary mr-2 rounded">Register as Family</a></li>
+          <li class="nav-item " ><a href="{{route('contact')}}" class="btn btn-secondary mr-2 rounded">Login</a></li>
+          @endguest
+          
+          
+        </ul>
+       
       </div>
       <div class="ftco_navbar">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown ml-auto">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="flag-icon flag-icon-{{Config::get('languages')[App::getLocale()]['flag-icon']}}"></span> {{ Config::get('languages')[App::getLocale()]['display'] }}
           </a>
@@ -61,6 +76,7 @@
           @endforeach
           </div>
   </li>
+  
     </div>
     </div>
   </nav>

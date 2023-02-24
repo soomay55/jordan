@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
   {{-- {{session()->get('locale')}} --}}
   {{-- {{dd(\Session::all())}} --}}
   {{-- {{Illuminate\Support\Facades\App::currentLocale()}} --}}

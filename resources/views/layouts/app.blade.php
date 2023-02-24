@@ -159,5 +159,6 @@ color:#69707a;
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/sl-1.6.0/datatables.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @stack('script')
 </html>

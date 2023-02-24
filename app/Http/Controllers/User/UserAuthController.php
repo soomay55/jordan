@@ -18,6 +18,9 @@ class UserAuthController extends Controller
     public function showRegisterForm(){
         return view('auth.register');
     }
+    public function showRegisterParentForm(){
+        return view('auth.register-parent');
+    }
     public function login(Request $request){
         $this->validate($request,[            
             'email' => ['required', 'string', 'email', 'max:255', 'exists:users'],
@@ -73,13 +76,23 @@ class UserAuthController extends Controller
             'membership_id'=>$member_id,
             'code' => $request->code
         ]);
+        if($user){
+            if(Auth::attempt(['email'=>$user->email,'password'=>$request->password])){
+                $request->session()->regenerate();
+                return redirect('/home');
+            };
+           
+        }else{
+            return back()->withErrors(['error' =>'Something went wrong']);
+        }
 
-        return redirect()->route('/home');
+       
         
 
     }
 
     public function register_parent(Request $request){
+       
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -99,6 +112,7 @@ class UserAuthController extends Controller
             'zip' => $request->zip,
             
         ]);
+        //dd($user);
         if($user){
             if(Auth::attempt(['email'=>$user->email,'password'=>$request->password])){
                 $request->session()->regenerate();
@@ -114,5 +128,22 @@ class UserAuthController extends Controller
     public function logout(){
         Auth::guard('web')->logout();
         return redirect('/');
+    }
+
+    public function check_code(Request $request){
+        $user= User::where('code',$request->code)->where('is_parent','=',1)->first();
+           
+            
+            if($user){
+                $member_id=$user->membership_id;
+                $member_count= User::where('code',$request->code)->count();
+                $member= Membership::where('id',$user->membership_id)->first()->member;
+              
+                if($member-$member_count>0){
+                    return response()->json(1);
+                }
+            }else{
+                return response()->json(0);
+            }
     }
 }

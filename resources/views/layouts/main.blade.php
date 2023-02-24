@@ -52,7 +52,15 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           @auth
-          <li class="nav-item " ><a href="{{route('contact')}}" class="nav-link " >Logout</a></li>
+          
+          <li class="nav-item " ><a class="nav-link" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+             {{ __('Logout') }}
+         </a></li>
+         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+      </form>
           @endauth
           @guest
           <li class="nav-item " ><a href="{{route('contact')}}" class="btn btn-secondary mr-2 rounded">Register as Family</a></li>

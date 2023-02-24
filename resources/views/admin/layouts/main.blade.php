@@ -58,14 +58,19 @@ https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css --
                                 <div class="sb-nav-link-icon "><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link {{(Request::is('admin/campaign')) ? 'active' : ''}}" href="{{route('admin.campaign.index')}}">
+                            {{-- <a class="nav-link {{(Request::is('admin/campaign')) ? 'active' : ''}}" href="{{route('admin.campaign.index')}}">
                                 <div class="sb-nav-link-icon "><i class="fas fa-columns"></i></div>
                                 Campaigns
+                            </a> --}}
+                            <a class="nav-link {{(Request::is('admin/member')) ? 'active' : ''}}" href="{{route('admin.membership')}}">
+                                <div class="sb-nav-link-icon "><i class="fas fa-chart-area"></i></div>
+                                Membership
                             </a>
                             <a class="nav-link {{(Request::is('admin/donation')) ? 'active' : ''}}" href="{{route('admin.donation')}}">
                                 <div class="sb-nav-link-icon "><i class="fas fa-chart-area"></i></div>
                                 Donation
                             </a>
+
                             {{-- <div class="sb-sidenav-menu-heading">Operations</div> --}}
                             {{-- <a class="nav-link collapsed {{(Request::is('admin/campaign')) ? 'active' : ''}} {{(Request::is('admin/donation')) ? 'active' : ''}}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>

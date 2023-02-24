@@ -11,8 +11,8 @@ class MembershipController extends Controller
 {
     use UploadAble;
     public function index(){
-
-        return 1;
+        $Membership =Membership::all();
+        return view('admin.membership.index',compact('Membership'));
     }
 
     public function create(){

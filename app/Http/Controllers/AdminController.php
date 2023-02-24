@@ -19,7 +19,7 @@ class AdminController extends Controller
 
     public function dashboard(){
         //dd(config('settings.site_name'));
-        $Campaign=Donation::all();
+        $Campaign=Donation::where('txn_for','membership')->get();
         $total=Donation::where('status','paid')->sum('amount');
         $total_24_hours=Donation::where('status','paid')->where('created_at',">=",Carbon::now()->subDay())->sum('amount');
         return view('admin.dashboard',compact('total','total_24_hours','Campaign'));

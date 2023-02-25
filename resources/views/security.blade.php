@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
-            <nav class="nav nav-borders">
+            <nav class="nav nav-borders navbar-light rounded-top" style="background-color: #fa8f3d;">
                 <a class="nav-link {{(Request::is('home')) ? 'active' : ''}}" href="{{route('user.home')}}">Profile</a>
                 <a class="nav-link {{(Request::is('home/transaction')) ? 'active' : ''}}" href="{{route('bill.home')}}" >Transaction</a>
                 <a class="nav-link {{(Request::is('home/security')) ? 'active' : ''}}" href="{{route('security.home')}}" >Security</a>
@@ -22,7 +22,7 @@
                                 </div>
                             @endif
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-6 mx-auto">
                     <!-- Change password card-->
                     <div class="card mb-4">
                         <div class="card-header">Change Password</div>
@@ -51,7 +51,7 @@
                                     <input class="form-control" id="new_password_confirmation" name="new_password_confirmation" type="password" placeholder="Confirm new password">
                                     
                                 </div>
-                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-primary btn-block" type="submit">Save</button>
                             </form>
                         </div>
                     </div>

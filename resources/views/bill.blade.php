@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
-            <nav class="nav nav-borders">
+            <nav class="nav nav-borders navbar-light rounded-top" style="background-color: #fa8f3d;">
                 <a class="nav-link {{(Request::is('home')) ? 'active' : ''}}" href="{{route('user.home')}}">Profile</a>
                 <a class="nav-link {{(Request::is('home/transaction')) ? 'active' : ''}}" href="{{route('bill.home')}}" >Transaction</a>
                 <a class="nav-link {{(Request::is('home/security')) ? 'active' : ''}}" href="{{route('security.home')}}" >Security</a>

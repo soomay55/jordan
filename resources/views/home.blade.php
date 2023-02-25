@@ -6,7 +6,7 @@
         
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
-            <nav class="nav nav-borders">
+            <nav class="nav nav-borders navbar-light rounded-top" style="background-color: #fa8f3d;">
                 <a class="nav-link {{(Request::is('home')) ? 'active' : ''}}" href="{{route('user.home')}}">Profile</a>
                 <a class="nav-link {{(Request::is('home/transaction')) ? 'active' : ''}}" href="{{route('bill.home')}}" >Transaction</a>
                 <a class="nav-link {{(Request::is('home/security')) ? 'active' : ''}}" href="{{route('security.home')}}" >Security</a>
@@ -34,7 +34,7 @@
                 <div class="col-xl-8">
                     <!-- Account details card-->
                     <div class="card mb-4">
-                        <div class="card-header">Account Details</div>
+                        <div class="card-header">Profile Details</div>
                         <div class="card-body">
                             {{-- <form action="{{route('user.profile')}}" method="POST" role="form" > --}}
                                 <!-- Form Group (username)-->
@@ -62,9 +62,9 @@
                                         <label class="small mb-1" for="inputOrgName">Organization name</label>
                                         <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
                                     </div> --}}
-                                    <div class="mb-3">
+                                    <div class="col-md-12">
                                         <label class="small mb-1" for="address">Address </label>
-                                        <input class="form-control" id="address" type="text" name="address" placeholder="" value="{{$user->address}}">
+                                        <textarea rows="3" class="form-control" id="address" name="address" placeholder="" >{{$user->address}}</textarea>
                                     </div>
                                     <!-- Form Group (location)-->
                                     {{-- <div class="col-md-6">
